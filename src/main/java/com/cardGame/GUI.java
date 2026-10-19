@@ -46,13 +46,43 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         * once you have confirmed that the card shows up properly. The code below should allow you to play the solitare
         * game once it's fully created.
         */
+	   
+	   this.setResizable(false);
 
+
+	   //The entire play area
+	   JPanel gameArea = new JPanel();
+	   gameArea.setLayout(null);
+	   gameArea.setOpaque(false);
+	   gameArea.setBounds(0,0,900,550);
+	   gameArea.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
+	   this.add(gameArea);
+	   
+	   
+	   //This is where the dealer's cards will be
 	   dealer = new JPanel();
 	   dealer.setOpaque(false);
-	   dealer.setLayout(new FlowLayout(dealer, FlowLayout.PAGE_AXIS));
-	   dealer.setSize(new Dimension(750,500));
+	   dealer.setLayout(null);
+	   dealer.setBounds(100,50,400,200);
 	   dealer.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
-	   this.add(dealer);
+	   gameArea.add(dealer);
+
+
+	   //Panel where the controls will be
+	   JPanel controls = new JPanel();
+	   controls.setOpaque(false);
+	   controls.setLayout(null);
+	   controls.setBounds(650, 350, 200, 150);
+	   controls.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.GREEN));
+	   gameArea.add(controls);
+
+	   //This is where the player's cards will be
+	   JPanel playersCards = new JPanel();
+	   playersCards.setOpaque(false);
+	   playersCards.setLayout(null);
+	   playersCards.setBounds(100, 300, 400, 200);
+	   playersCards.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
+	   gameArea.add(playersCards);
 
 
         Card card = new Card(2, Card.Suit.Diamonds);

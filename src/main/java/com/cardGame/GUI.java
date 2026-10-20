@@ -13,12 +13,14 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.Stack;
 
 
 public class GUI extends JFrame implements ActionListener, MouseListener, MouseMotionListener{
 
 	private Solitaire game;
 	JPanel dealer;
+	JPanel playersCards;
 
 
 
@@ -77,7 +79,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	   gameArea.add(controls);
 
 	   //This is where the player's cards will be
-	   JPanel playersCards = new JPanel();
+	   playersCards = new JPanel();
 	   playersCards.setOpaque(false);
 	   playersCards.setLayout(null);
 	   playersCards.setBounds(100, 300, 400, 200);
@@ -95,6 +97,27 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
         this.setVisible(true);
     }
+   
+   public JLayeredPane drawPile(Stack<Card> stackIn) {
+
+	    Object cards[];
+	    JLayeredPane ret = new JLayeredPane();
+	    ret.setOpaque(false);
+	    ret.setLayout(null);
+	    ret.setBounds(0, 0, 100, 300);
+	    ret.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
+	    playersCards.add(ret);
+	    cards = stackIn.toArray(); //please note we convert this stack to an array so that we can iterate through it backwards while drawing. You’ll need to cast each element inside cards to a <Card> in order to use the methods to adjust their position
+	    
+	    for (int i = 0; i < cards.length; i++) {
+	    	ret.add((Card)cards[i]);
+	    }
+	 
+	    return ret;
+
+	 
+
+	}
 
 
 	@Override

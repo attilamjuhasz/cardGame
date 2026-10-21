@@ -21,6 +21,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	private Solitaire game;
 	JPanel dealer;
 	JPanel playersCards;
+	JLayeredPane ret;
 
 
 
@@ -43,74 +44,88 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
     	   e.printStackTrace();
        }
        
-       /*******
-        * This is just a test to make sure images are being read correctly on your machine. Please replace
-        * once you have confirmed that the card shows up properly. The code below should allow you to play the solitare
-        * game once it's fully created.
-        */
-	   
-	   this.setResizable(false);
+		/*******
+		* This is just a test to make sure images are being read correctly on your machine. Please replace
+		* once you have confirmed that the card shows up properly. The code below should allow you to play the solitare
+		* game once it's fully created.
+		*/
+
+		this.setResizable(false);
 
 
-	   //The entire play area
-	   JPanel gameArea = new JPanel();
-	   gameArea.setLayout(null);
-	   gameArea.setOpaque(false);
-	   gameArea.setBounds(0,0,900,550);
-	   gameArea.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
-	   this.add(gameArea);
-	   
-	   
-	   //This is where the dealer's cards will be
-	   dealer = new JPanel();
-	   dealer.setOpaque(false);
-	   dealer.setLayout(null);
-	   dealer.setBounds(100,50,400,200);
-	   dealer.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
-	   gameArea.add(dealer);
 
 
-	   //Panel where the controls will be
-	   JPanel controls = new JPanel();
-	   controls.setOpaque(false);
-	   controls.setLayout(null);
-	   controls.setBounds(650, 350, 200, 150);
-	   controls.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.GREEN));
-	   gameArea.add(controls);
-
-	   //This is where the player's cards will be
-	   playersCards = new JPanel();
-	   playersCards.setOpaque(false);
-	   playersCards.setLayout(null);
-	   playersCards.setBounds(100, 300, 400, 200);
-	   playersCards.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
-	   gameArea.add(playersCards);
+		//The entire play area
+		JPanel gameArea = new JPanel();
+		gameArea.setLayout(null);
+		gameArea.setOpaque(false);
+		gameArea.setBounds(0,0,900,550);
+		gameArea.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
+		this.add(gameArea);
 
 
-        Card card = new Card(2, Card.Suit.Diamonds);
-        System.out.println(card);
-        dealer.add(card);
+		//This is where the dealer's cards will be
+		dealer = new JPanel();
+		dealer.setOpaque(false);
+		dealer.setLayout(null);
+		dealer.setBounds(100,50,400,200);
+		dealer.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+		gameArea.add(dealer);
+
+
+		//Panel where the controls will be
+		JPanel controls = new JPanel();
+		controls.setOpaque(false);
+		controls.setLayout(null);
+		controls.setBounds(650, 350, 200, 150);
+		controls.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.GREEN));
+		gameArea.add(controls);
+
+		//This is where the player's cards will be
+		playersCards = new JPanel();
+		playersCards.setOpaque(false);
+		playersCards.setLayout(null);
+		playersCards.setBounds(100, 300, 400, 200);
+		playersCards.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
+		gameArea.add(playersCards);
+
+		ret = new JLayeredPane();
+		ret.setOpaque(false);
+		ret.setLayout(null);
+		ret.setBounds(0, 0, 400, 200);
+		ret.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
+		playersCards.add(ret);
+
+		Stack<Card> stackOfCards = new Stack<>();
+		stackOfCards.push(new Card(2, Card.Suit.Diamonds));
+		stackOfCards.push(new Card(3, Card.Suit.Diamonds));
+		stackOfCards.push(new Card(4, Card.Suit.Hearts));
+
+		this.drawPile(stackOfCards);
+
+
+		Card card = new Card(2, Card.Suit.Diamonds);
+		System.out.println(card);
+		dealer.add(card);
 
 		Card card2 = new Card(3, Card.Suit.Diamonds);
 		System.out.println(card2);
 		dealer.add(card2);
 
-        this.setVisible(true);
+		this.setVisible(true);
     }
    
+   //Precondition: gui is defined and stack is defined
+   //Postcondition: places cards in stack in order ontop of eachother
    public JLayeredPane drawPile(Stack<Card> stackIn) {
 
 	    Object cards[];
-	    JLayeredPane ret = new JLayeredPane();
-	    ret.setOpaque(false);
-	    ret.setLayout(null);
-	    ret.setBounds(0, 0, 100, 300);
-	    ret.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
-	    playersCards.add(ret);
 	    cards = stackIn.toArray(); //please note we convert this stack to an array so that we can iterate through it backwards while drawing. You’ll need to cast each element inside cards to a <Card> in order to use the methods to adjust their position
 	    
 	    for (int i = 0; i < cards.length; i++) {
-	    	ret.add((Card)cards[i]);
+			Card card = (Card) cards[i];
+			card.setBounds(i * 20, 0, 100, 150);
+			ret.add(card, (Integer)i);
 	    }
 	 
 	    return ret;

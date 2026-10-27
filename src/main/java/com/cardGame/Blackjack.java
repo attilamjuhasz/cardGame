@@ -5,14 +5,28 @@ import java.util.Stack;
 
 public class Blackjack {
 	ArrayList<Stack <Card>> columns;
-	Queue<Card> deck;
+	Stack<Card> playerDeck;
+	Stack<Card> dealerDeck;
 	int tokens;
 	int bet;
-	int playerNumber = 0;
-	int dealerNumber = 0;
 	boolean game = true;
 
+	
+	
+	
+	public Blackjack(){
+		playerDeck = new Stack<>();
+		dealerDeck = new Stack<>();
+		tokens = 0;
+		bet = 0;
+	}
+	
+	
+	
+	
 	public void hit() {
+		
+		
 		
 	}
 	   
@@ -29,21 +43,26 @@ public class Blackjack {
 	   
 	   
 	   public void gameOver() {
-		   if (money <= 0) {
+		   if (tockens <= 0) {
 			   game = false;
 		   }
 	   }
 	
 	
-	//the part of your program that's in charge of game rules goes here.
-	public BlackJack(){
-	}
 	
 	
 	
 	public void bet(int bet) {
 		this.bet = bet;
 		tokens -= this.bet;
+	}
+	
+	public void stand() {
+		this.dealerTurn();
+	}
+	
+	public void dealerTurn() {
+		
 	}
 	
 	

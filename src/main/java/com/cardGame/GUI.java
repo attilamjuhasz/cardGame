@@ -18,16 +18,19 @@ import java.util.Stack;
 
 public class GUI extends JFrame implements ActionListener, MouseListener, MouseMotionListener{
 
-	private Solitaire game;
+	private Blackjack game;
 	JPanel dealer;
 	JPanel playersCards;
 	JLayeredPane ret;
+	JButton hit;
+	JButton bet;
+	JButton stand;
 
 
 
 
 	public static String IMG_PATH = System.getProperty("user.dir")+"/src/main/java/com/cardGame/resources/";
-   public GUI(Solitaire game){
+   public GUI(Blackjack game){
 	   this.game= game;
         //Create and set up the window.
        setTitle("Solitaire");
@@ -76,10 +79,18 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		//Panel where the controls will be
 		JPanel controls = new JPanel();
 		controls.setOpaque(false);
-		controls.setLayout(null);
+		controls.setLayout(new FlowLayout());
 		controls.setBounds(650, 350, 200, 150);
 		controls.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.GREEN));
 		gameArea.add(controls);
+		
+		hit = new JButton("Hit");
+		bet = new JButton("Bet");
+		stand = new JButton("Stand");
+		
+		controls.add(bet);
+		controls.add(hit);
+		controls.add(stand);
 
 		//This is where the player's cards will be
 		playersCards = new JPanel();

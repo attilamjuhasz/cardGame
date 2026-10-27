@@ -108,6 +108,16 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		playersCards.add(ret);
 
 		Stack<Card> stackOfCards = new Stack<>();
+
+		for (int i = 0; i < 52; i++) {
+			int num = (int) (Math.random() * 13) + 1;
+			
+			//stackOfCards.push(new Card(num, ));
+		}
+
+
+
+	   
 		stackOfCards.push(new Card(2, Card.Suit.Diamonds));
 		stackOfCards.push(new Card(3, Card.Suit.Diamonds));
 		stackOfCards.push(new Card(4, Card.Suit.Hearts));

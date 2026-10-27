@@ -26,7 +26,11 @@ public class Blackjack {
 	
 	public void hit() {
 		
+		playerDeck.push(this.newCard());
 		
+	}
+	
+	public Card newCard() {
 		
 	}
 	   

@@ -26,6 +26,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	JButton bet;
 	JButton stand;
 
+	Stack<Card> stackOfCards = new Stack<>();
+
 
 
 
@@ -36,6 +38,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
        setTitle("Solitaire");
        setSize(900,700);
        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	   stackOfCards = game.newGame();
        
        // this supplies the background
        try {
@@ -107,20 +110,20 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		ret.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
 		playersCards.add(ret);
 
-		Stack<Card> stackOfCards = new Stack<>();
+		//Stack<Card> stackOfCards = new Stack<>();
 
-		for (int i = 0; i < 52; i++) {
-			int num = (int) (Math.random() * 13) + 1;
-			
-			//stackOfCards.push(new Card(num, ));
-		}
+		//for (int i = 0; i < 52; i++) {
+		//	int num = (int) (Math.random() * 13) + 1;
+		//	
+		//	//stackOfCards.push(new Card(num, ));
+		//}
 
 
 
 	   
-		stackOfCards.push(new Card(2, Card.Suit.Diamonds));
-		stackOfCards.push(new Card(3, Card.Suit.Diamonds));
-		stackOfCards.push(new Card(4, Card.Suit.Hearts));
+		//stackOfCards.push(new Card(2, Card.Suit.Diamonds));
+		//stackOfCards.push(new Card(3, Card.Suit.Diamonds));
+		//stackOfCards.push(new Card(4, Card.Suit.Hearts));
 
 		this.drawPile(stackOfCards);
 

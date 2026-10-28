@@ -31,6 +31,25 @@ public class Blackjack {
 		
 	}
 	
+	public Card newCard() {
+		int num = (int)(14 * Math.random());
+		int suitNum = (int)(5 * Math.random());
+		
+		Object cards[];
+	    cards = playerDeck.toArray();
+	    
+	    boolean dup = true;
+	    
+	    int i = 0;
+	    
+	    while (dup && i < cards.length) {
+	    	if (cards[i].value == num &&) {
+	    		if ()
+	    	}
+	    }
+	    
+	}
+	
 	public Stack<Card> newGame() {
 		ArrayList<Card> list = new ArrayList();
 		//loop through all cards

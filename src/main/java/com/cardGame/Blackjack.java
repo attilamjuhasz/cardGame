@@ -31,20 +31,40 @@ public class Blackjack {
 		
 	}
 	
-	public Card newCard() {
+	public Stack<Card> newGame() {
+		ArrayList<Card> list = new ArrayList();
+		//loop through all cards
+		//make an arrayList
+		for (int i = 0; i < 4; i++) {
+			for (int j = 1; j < 14; j++) {
+				if (i == 0) {
+					list.add(new Card(j, Card.Suit.Diamonds));
+				}
+				else if (i == 1) {
+					list.add(new Card(j, Card.Suit.Spades));
+				}
+				else if (i == 2) {
+					list.add(new Card(j, Card.Suit.Hearts));
+				}
+				else {
+					list.add(new Card(j, Card.Suit.Clubs));
+				}
+				
+			}
+		}
 		
+		
+		Collections.shuffle(list);
+		//take all the cards and put them into a stack
+		Stack<Card> stackOfCards = new Stack<>();
+		for (int i = 0; i < list.size(); i++) {
+			stackOfCards.push(list.get(i));
+			
+		}
+		
+		
+		return stackOfCards;
 	}
-	   
-	   //FINISHROUND METHOD
-
-//		public void finishRound() {
-//		   if (!playerNumber > 21 && playerNumber > dealerNumber) {
-//			   money += bet;
-//		   }
-//		   else {
-//			   money -= bet;
-//		   }	   
-	//   }
 	   
 	   
 	   public void gameOver() {

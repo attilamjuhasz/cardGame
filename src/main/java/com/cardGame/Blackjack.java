@@ -69,6 +69,14 @@ public class Blackjack {
 		
 	}
 	
+		public void newGame() {
+		ArrayList<Card> list = new ArrayList(); 
+		//loop through all cards
+		//make an arrayList
+		
+		Collections.shuffle(list);
+		//take all the cards and put them into a stack
+	}
 	
 	
 	

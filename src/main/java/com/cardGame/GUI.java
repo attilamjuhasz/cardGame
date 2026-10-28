@@ -38,7 +38,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
        setTitle("Solitaire");
        setSize(900,700);
        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	   stackOfCards = game.newGame();
+	   stackOfCards = game.generateCards();
        
        // this supplies the background
        try {

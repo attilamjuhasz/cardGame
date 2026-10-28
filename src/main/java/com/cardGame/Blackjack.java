@@ -50,7 +50,7 @@ public class Blackjack {
 	    
 	}
 	
-	public Stack<Card> newGame() {
+	public Stack<Card> generateCards() {
 		ArrayList<Card> list = new ArrayList();
 		//loop through all cards
 		//make an arrayList

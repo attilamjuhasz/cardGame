@@ -101,22 +101,14 @@ public class Blackjack {
 		tokens -= this.bet;
 	}
 	
-	public void stand() {
-		this.dealerTurn();
-	}
-	
 	public void dealerTurn() {
 		
 	}
 	
-		public void newGame() {
-		ArrayList<Card> list = new ArrayList(); 
-		//loop through all cards
-		//make an arrayList
-		
-		Collections.shuffle(list);
-		//take all the cards and put them into a stack
+	public void stand() {
+		dealerTurn();
 	}
+	
 	
 	
 	

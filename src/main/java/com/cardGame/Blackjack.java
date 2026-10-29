@@ -81,11 +81,21 @@ public class Blackjack {
 	
 	
 	
+	   public finishRound() {
+		   int num = bet * 2;
+		   tokens += bet;
+		   
+	   }
 	
-	public void bet(int bet) {
-		this.bet = bet;
-		tokens -= this.bet;
-	}
+	
+	
+		public void bet(int bet) {
+			if (tokens >= bet) {
+				this.bet = bet;
+				tokens -= this.bet;
+			}
+		}
+		
 	
 	public void dealerTurn() {
 		

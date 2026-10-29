@@ -87,7 +87,7 @@ public class Blackjack {
 	   
 	   
 	   public void gameOver() {
-		   if (tockens <= 0) {
+		   if (tokens <= 0) {
 			   game = false;
 		   }
 	   }

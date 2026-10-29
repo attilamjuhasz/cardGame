@@ -6,6 +6,7 @@ import java.util.Stack;
 
 public class Blackjack {
 	ArrayList<Stack <Card>> columns;
+	Stack<Card> deck;
 	Stack<Card> playerDeck;
 	Stack<Card> dealerDeck;
 	int tokens;

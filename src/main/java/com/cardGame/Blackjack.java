@@ -25,30 +25,15 @@ public class Blackjack {
 	
 	
 	
-	public void hit() {
+	public void hit(GUI gui) {
 		
-		playerDeck.push(this.newCard());
+		Card leCard = deck.pop();
+		playerDeck.push(leCard);
+		
+		gui.drawPile(playerDeck);
 		
 	}
 	
-	public Card newCard() {
-		int num = (int)(14 * Math.random());
-		int suitNum = (int)(5 * Math.random());
-		
-		Object cards[];
-	    cards = playerDeck.toArray();
-	    
-	    boolean dup = true;
-	    
-	    int i = 0;
-	    
-	    while (dup && i < cards.length) {
-	    	if (cards[i].value == num &&) {
-	    		if ()
-	    	}
-	    }
-	    
-	}
 	
 	public Stack<Card> generateCards() {
 		ArrayList<Card> list = new ArrayList();

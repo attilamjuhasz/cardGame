@@ -88,8 +88,26 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		gameArea.add(controls);
 		
 		hit = new JButton("Hit");
+		hit.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {  
+	           game.hit();
+	          }
+	      }); 
+
 		bet = new JButton("Bet");
+		bet.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {  
+	           game.bet();
+	          }
+	      }); 
+		
 		stand = new JButton("Stand");
+		stand.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {  
+	           game.stand();
+	          }
+	      }); 
+		
 		
 		controls.add(bet);
 		controls.add(hit);

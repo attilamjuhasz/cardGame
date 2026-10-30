@@ -26,10 +26,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	JButton bet;
 	JButton stand;
 
-	Stack<Card> stackOfCards = new Stack<>();
-
-
-
 
 	public static String IMG_PATH = System.getProperty("user.dir")+"/src/main/java/com/cardGame/resources/";
    public GUI(Blackjack game){
@@ -38,8 +34,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
        setTitle("Solitaire");
        setSize(900,700);
        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	   stackOfCards = game.generateCards();
-       
+
        // this supplies the background
        try {
 		Image blackImg = ImageIO.read(new File(IMG_PATH+"background.jpg"));
@@ -97,7 +92,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		bet = new JButton("Bet");
 		bet.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
-	           game.bet();
+	           game.bet(5);
 	          }
 	      }); 
 		
@@ -107,7 +102,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	           game.stand();
 	          }
 	      }); 
-		
 		
 		controls.add(bet);
 		controls.add(hit);
@@ -127,23 +121,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		ret.setBounds(0, 0, 400, 200);
 		ret.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
 		playersCards.add(ret);
-
-		//Stack<Card> stackOfCards = new Stack<>();
-
-		//for (int i = 0; i < 52; i++) {
-		//	int num = (int) (Math.random() * 13) + 1;
-		//	
-		//	//stackOfCards.push(new Card(num, ));
-		//}
-
-
-
-	   
-		//stackOfCards.push(new Card(2, Card.Suit.Diamonds));
-		//stackOfCards.push(new Card(3, Card.Suit.Diamonds));
-		//stackOfCards.push(new Card(4, Card.Suit.Hearts));
-
-		this.drawPile(stackOfCards);
 
 
 		Card card = new Card(2, Card.Suit.Diamonds);

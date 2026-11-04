@@ -22,6 +22,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	JPanel dealer;
 	JPanel playersCards;
 	JLayeredPane ret;
+	JLayeredPane dealerRet;
 	JButton hit;
 	JButton bet;
 	JButton stand;
@@ -97,6 +98,13 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		ret.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
 		playersCards.add(ret);
 		
+		dealerRet = new JLayeredPane();
+		dealerRet.setOpaque(false);
+		dealerRet.setLayout(null);
+		dealerRet.setBounds(0, 0, 400, 200);
+		dealerRet.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
+		dealer.add(dealerRet);
+		
 		hit = new JButton("Hit");
 		hit.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
@@ -148,6 +156,23 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	    }
 	 
 	    return ret;
+
+	 
+
+	}
+   
+   public JLayeredPane drawPileDealer(Stack<Card> stackIn) {
+
+	    Object cards[];
+	    cards = stackIn.toArray(); //please note we convert this stack to an array so that we can iterate through it backwards while drawing. You’ll need to cast each element inside cards to a <Card> in order to use the methods to adjust their position
+	    
+	    for (int i = 0; i < cards.length; i++) {
+			Card card = (Card) cards[i];
+			card.setBounds(i * 20, 0, 100, 150);
+			ret.add(card, (Integer)i);
+	    }
+	 
+	    return dealerRet;
 
 	 
 

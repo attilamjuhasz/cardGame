@@ -28,10 +28,11 @@ public class Blackjack {
 	
 	
 	
-	public void hit() {
+	public Stack<Card> hit() {
 		
 		Card leCard = deck.pop();
 		playerDeck.push(leCard);
+		return playerDeck;
 		
 		
 	}

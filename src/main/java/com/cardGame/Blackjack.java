@@ -17,10 +17,12 @@ public class Blackjack {
 	
 	
 	public Blackjack(){
+		deck = new Stack();
 		playerDeck = new Stack<>();
 		dealerDeck = new Stack<>();
 		tokens = 0;
 		bet = 0;
+		generateCards();
 	}
 	
 	
@@ -35,7 +37,7 @@ public class Blackjack {
 	}
 	
 	
-	public Stack<Card> generateCards() {
+	public void generateCards() {
 		ArrayList<Card> list = new ArrayList();
 		//loop through all cards
 		//make an arrayList
@@ -67,7 +69,7 @@ public class Blackjack {
 		}
 		
 		
-		return stackOfCards;
+		deck = stackOfCards;
 	}
 	   
 	   

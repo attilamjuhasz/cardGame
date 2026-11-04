@@ -81,12 +81,27 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		controls.setBounds(650, 350, 200, 150);
 		controls.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.GREEN));
 		gameArea.add(controls);
+
+		//This is where the player's cards will be
+		playersCards = new JPanel();
+		playersCards.setOpaque(false);
+		playersCards.setLayout(null);
+		playersCards.setBounds(100, 300, 400, 200);
+		playersCards.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
+		gameArea.add(playersCards);
+
+		ret = new JLayeredPane();
+		ret.setOpaque(false);
+		ret.setLayout(null);
+		ret.setBounds(0, 0, 400, 200);
+		ret.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
+		playersCards.add(ret);
 		
 		hit = new JButton("Hit");
 		hit.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
-	           game.hit();
-	          }
+	           ret.add(drawPile(game.hit()));
+	        }
 	      }); 
 
 		bet = new JButton("Bet");
@@ -106,21 +121,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		controls.add(bet);
 		controls.add(hit);
 		controls.add(stand);
-
-		//This is where the player's cards will be
-		playersCards = new JPanel();
-		playersCards.setOpaque(false);
-		playersCards.setLayout(null);
-		playersCards.setBounds(100, 300, 400, 200);
-		playersCards.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
-		gameArea.add(playersCards);
-
-		ret = new JLayeredPane();
-		ret.setOpaque(false);
-		ret.setLayout(null);
-		ret.setBounds(0, 0, 400, 200);
-		ret.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
-		playersCards.add(ret);
 
 
 		Card card = new Card(2, Card.Suit.Diamonds);

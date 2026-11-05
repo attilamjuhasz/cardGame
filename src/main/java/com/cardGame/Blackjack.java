@@ -12,6 +12,8 @@ public class Blackjack {
 	int tokens;
 	int bet;
 	boolean game = true;
+	int pValue = 0;
+	int dValue = 0;
 
 	
 	
@@ -32,7 +34,27 @@ public class Blackjack {
 		
 		Card leCard = deck.pop();
 		playerDeck.push(leCard);
+		pValue += leCard.value;
 		return playerDeck;
+		
+		
+	}
+	
+	public void newGame(){
+		
+		this.generateCards();
+		Card one = deck.pop();
+		Card two = deck.pop();
+		Card three = deck.pop();
+		Card four = deck.pop();
+		
+		playerDeck.push(one);
+		playerDeck.push(two);
+		dealerDeck.push(three);
+		dealerDeck.push(four);
+		
+		pValue += (one.value + two.value);
+		dValue += (three.value + four.value);
 		
 		
 	}
@@ -71,6 +93,7 @@ public class Blackjack {
 		
 		
 		deck = stackOfCards;
+		
 	}
 	   
 	   

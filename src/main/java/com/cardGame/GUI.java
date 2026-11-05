@@ -105,6 +105,12 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		dealerRet.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
 		dealer.add(dealerRet);
 		
+		game.newGame();
+		ret.add(drawPile(game.playerDeck));
+		revalidate();
+		repaint();
+		
+		
 		hit = new JButton("Hit");
 		hit.addActionListener(new ActionListener() {
 			
@@ -133,15 +139,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		controls.add(bet);
 		controls.add(hit);
 		controls.add(stand);
-
-
-		Card card = new Card(2, Card.Suit.Diamonds);
-		System.out.println(card);
-		dealer.add(card);
-
-		Card card2 = new Card(3, Card.Suit.Diamonds);
-		System.out.println(card2);
-		dealer.add(card2);
 
 		this.setVisible(true);
     }

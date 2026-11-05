@@ -115,6 +115,13 @@ public class Card extends JPanel{
 			setOpaque(false);
 		}
 		
+		public int getWidth() {
+			return image.getWidth();
+		}
+		
+		public int getHeight() {
+			return image.getHeight();
+		}
 		/**
 		 * Turns the card with the back up
 		 */

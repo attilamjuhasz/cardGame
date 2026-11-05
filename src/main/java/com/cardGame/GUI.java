@@ -107,8 +107,12 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		
 		hit = new JButton("Hit");
 		hit.addActionListener(new ActionListener() {
+			
 	        public void actionPerformed(ActionEvent e) {  
+	        System.out.println("here");
 	           ret.add(drawPile(game.hit()));
+	           revalidate();
+	           repaint();
 	        }
 	      }); 
 
@@ -148,12 +152,13 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 	    Object cards[];
 	    cards = stackIn.toArray(); //please note we convert this stack to an array so that we can iterate through it backwards while drawing. You’ll need to cast each element inside cards to a <Card> in order to use the methods to adjust their position
-	    
+	    JLayeredPane ret = new JLayeredPane();
 	    for (int i = 0; i < cards.length; i++) {
 			Card card = (Card) cards[i];
 			card.setBounds(i * 20, 0, 100, 150);
 			ret.add(card, (Integer)i);
 	    }
+	    ret.setBounds(new Rectangle(0, 0, cards.length*((Card)cards[0]).getWidth(), cards.length* ((Card)cards[0]).getHeight()));
 	 
 	    return ret;
 

@@ -22,7 +22,7 @@ public class Blackjack {
 		deck = new Stack();
 		playerDeck = new Stack<>();
 		dealerDeck = new Stack<>();
-		tokens = 0;
+		tokens = 100;
 		bet = 0;
 		generateCards();
 	}
@@ -97,29 +97,32 @@ public class Blackjack {
 	}
 	   
 	   
-	   public void gameOver() {
-		   if (tokens <= 0) {
-			   game = false;
-		   }
-	   }
-	
-	
-	
-	
-	   public finishRound() {
-		   int num = bet * 2;
-		   tokens += bet;
-		   
-	   }
-	
-	
-	
-		public void bet(int bet) {
-			if (tokens >= bet) {
-				this.bet = bet;
-				tokens -= this.bet;
-			}
+	public void gameOver() {
+		if (tokens <= 0) {
+			game = false;
 		}
+	}
+	
+	
+	
+	
+	public finishRound() {
+		int num = bet * 2;
+		tokens += bet;
+		   
+	}
+	
+	
+	
+	public void bet(int bet) {
+		if (tokens >= bet) {
+			this.bet = bet;
+			tokens -= this.bet;
+			betted = true;
+			System.out.println("Betted: " + bet);
+		}
+	}
+		
 		
 	
 	public void dealerTurn() {

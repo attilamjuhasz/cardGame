@@ -115,7 +115,7 @@ public class Blackjack {
 	
 	
 	public void bet(int bet) {
-		if (tokens >= bet) {
+		if (tokens >= bet && betted == false) {
 			this.bet = bet;
 			tokens -= this.bet;
 			betted = true;

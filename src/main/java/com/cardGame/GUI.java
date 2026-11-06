@@ -103,6 +103,13 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		dealerRet.setBounds(0, 0, 400, 200);
 		dealerRet.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
 		dealer.add(dealerRet);
+
+	   	JPanel labels = new JPanel();
+		labels.setOpaque(false);
+		labels.setLayout(null);
+		labels.setBounds(700, 100, 100, 200);
+		labels.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
+		gameArea.add(labels);
 		
 		game.newGame();
 		ret.add(drawPile(game.playerDeck));

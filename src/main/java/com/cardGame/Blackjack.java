@@ -106,12 +106,14 @@ public class Blackjack {
 	
 	
 	
-	
-	   public finishRound() {
+	   public void finishRound() {
 		   int num = bet * 2;
-		   tokens += bet;
-		   
+		   if (pValue <= 21 && pValue > dValue) {
+			   tokens += num;
+		   }
+		   betted = false;
 	   }
+	
 	
 	
 	
@@ -134,6 +136,8 @@ public class Blackjack {
 			dealerDeck.push(card);
 			dValue += card.value;
 		}
+
+		finishRound();
 		
 	}
 	

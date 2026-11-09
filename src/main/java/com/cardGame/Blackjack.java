@@ -14,6 +14,7 @@ public class Blackjack {
 	boolean game = true;
 	int pValue = 0;
 	int dValue = 0;
+	boolean betted = false;
 
 	
 	
@@ -114,12 +115,16 @@ public class Blackjack {
 	
 	
 	
-		public void bet(int bet) {
-			if (tokens >= bet) {
-				this.bet = bet;
-				tokens -= this.bet;
-			}
+	public void bet(int bet) {
+		if (tokens >= bet && betted == false) {
+			this.bet = bet;
+			tokens -= this.bet;
+			betted = true;
+			System.out.println("Betted: " + bet);
 		}
+	}
+		
+		
 		
 	
 	public void dealerTurn() {

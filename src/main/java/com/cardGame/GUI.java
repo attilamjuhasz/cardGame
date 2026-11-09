@@ -24,6 +24,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	JLayeredPane ret;
 	JLayeredPane dealerRet;
 	JButton hit;
+	JButton bet;
 	JButton stand;
 
 
@@ -103,7 +104,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		dealerRet.setBounds(0, 0, 400, 200);
 		dealerRet.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
 		dealer.add(dealerRet);
-
+		
 	   	JPanel labels = new JPanel();
 		labels.setOpaque(false);
 		labels.setLayout(null);
@@ -113,6 +114,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		
 		game.newGame();
 		ret.add(drawPile(game.playerDeck));
+		dealerRet.add(drawPileDealer(game.dealerDeck, false));
+		
 		revalidate();
 		repaint();
 		
@@ -128,45 +131,21 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	        }
 	      }); 
 
-		JButton bet5 = new JButton("Bet 5");
-		bet5.addActionListener(new ActionListener() {
+		bet = new JButton("Bet");
+		bet.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.bet(5);
-	          }
-	      }); 
-		
-		JButton bet15 = new JButton("Bet 15");
-		bet15.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {  
-	           game.bet(15);
-	          }
-	      }); 
-
-		JButton bet30 = new JButton("Bet 30");
-		bet30.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {  
-	           game.bet(30);
-	          }
-	      }); 
-		
-		JButton betAll = new JButton("Bet All");
-		betAll.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {  
-	           game.bet(game.tokens);
 	          }
 	      }); 
 		
 		stand = new JButton("Stand");
 		stand.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
-	           game.stand();
+	           game.dealerTurn();
 	          }
 	      }); 
 		
-		controls.add(bet5);
-		controls.add(bet15);
-		controls.add(bet30);
-		controls.add(betAll);
+		controls.add(bet);
 		controls.add(hit);
 		controls.add(stand);
 
@@ -186,6 +165,10 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 			ret.add(card, (Integer)i);
 	    }
 	    ret.setBounds(new Rectangle(0, 0, cards.length*((Card)cards[0]).getWidth(), cards.length* ((Card)cards[0]).getHeight()));
+	    
+	    if (game.pValue > 21) {
+	    	game.gameOver();
+	    }
 	 
 	    return ret;
 
@@ -193,15 +176,23 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 	}
    
-   public JLayeredPane drawPileDealer(Stack<Card> stackIn) {
+   public JLayeredPane drawPileDealer(Stack<Card> stackIn, boolean dTurn) {
 
 	    Object cards[];
 	    cards = stackIn.toArray(); //please note we convert this stack to an array so that we can iterate through it backwards while drawing. You’ll need to cast each element inside cards to a <Card> in order to use the methods to adjust their position
-	    
+	    JLayeredPane dealerRet = new JLayeredPane();
 	    for (int i = 0; i < cards.length; i++) {
 			Card card = (Card) cards[i];
 			card.setBounds(i * 20, 0, 100, 150);
-			ret.add(card, (Integer)i);
+			if (!dTurn && i == 0) {
+				card.hide();
+			}
+			dealerRet.add(card, (Integer)i);
+	    }
+	    dealerRet.setBounds(new Rectangle(0, 0, cards.length*((Card)cards[0]).getWidth(), cards.length* ((Card)cards[0]).getHeight()));
+	    
+	    if (game.pValue > 21) {
+	    	game.gameOver();
 	    }
 	 
 	    return dealerRet;

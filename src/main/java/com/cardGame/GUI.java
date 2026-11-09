@@ -131,12 +131,42 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	        }
 	      }); 
 
-		bet = new JButton("Bet");
-		bet.addActionListener(new ActionListener() {
+		JButton bet5 = new JButton("Bet 5");
+		bet5.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.bet(5);
 	          }
 	      }); 
+		
+		JButton bet15 = new JButton("Bet 15");
+		bet15.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {  
+	           game.bet(15);
+	          }
+	      }); 
+
+		JButton bet30 = new JButton("Bet 30");
+		bet30.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {  
+	           game.bet(30);
+	          }
+	      }); 
+		
+		JButton betAll = new JButton("Bet All");
+		betAll.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {  
+	           game.bet(game.tokens);
+	          }
+	      }); 
+		
+		stand = new JButton("Stand");
+		stand.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {  
+	           game.stand();
+	          }
+	      }); 
+		
+
 		
 		stand = new JButton("Stand");
 		stand.addActionListener(new ActionListener() {
@@ -145,7 +175,10 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	          }
 	      }); 
 		
-		controls.add(bet);
+		controls.add(bet5);
+		controls.add(bet15);
+		controls.add(bet30);
+		controls.add(betAll);
 		controls.add(hit);
 		controls.add(stand);
 

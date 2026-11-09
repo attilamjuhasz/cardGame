@@ -23,7 +23,7 @@ public class Blackjack {
 		deck = new Stack();
 		playerDeck = new Stack<>();
 		dealerDeck = new Stack<>();
-		tokens = 0;
+		tokens = 100;
 		bet = 0;
 		generateCards();
 	}

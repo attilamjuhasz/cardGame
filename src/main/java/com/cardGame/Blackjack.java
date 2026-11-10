@@ -48,6 +48,8 @@ public class Blackjack {
 	}
 	
 	public void newGame(){
+
+		bet = 0;
 		
 		this.generateCards();
 		Card one = deck.pop();
@@ -105,20 +107,15 @@ public class Blackjack {
 	   
 	   
 	   public void gameOver() {
-		   if (tokens <= 0) {
-			   game = false;
+		   if (pValue > dValue) {
+			   tokens += 2*bet;
 		   }
+		   else if (dValue == pValue) {
+			   tokens += bet;
+		   }
+		   this.newGame();
 	   }
 	
-	
-	
-	   public void finishRound() {
-		   int num = bet * 2;
-		   if (pValue <= 21 && pValue > dValue) {
-			   tokens += num;
-		   }
-		   betted = false;
-	   }
 	
 	
 	

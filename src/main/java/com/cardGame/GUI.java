@@ -26,6 +26,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	JButton hit;
 	JButton bet;
 	JButton stand;
+	JLabel labelTokens;
+	JLabel labelBet;
 
 
 	public static String IMG_PATH = System.getProperty("user.dir")+"/src/main/java/com/cardGame/resources/";
@@ -111,15 +113,17 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		labels.setBounds(700, 100, 150, 100);
 		labels.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.green));
 		gameArea.add(labels);
-		JLabel aba = new JLabel("Tokens: "+game.tokens);
-		aba.setFont(new Font("Serif", Font.PLAIN, 20));
-		aba.setForeground (Color.black);
-		aba.setBounds(30,0,100,50);
-		labels.add(aba);
-		JLabel bbb = new JLabel("Bet: "+game.bet);
-		bbb.setForeground (Color.black);
-		bbb.setBounds(30,0,100,105);
-		labels.add(bbb);
+		
+		labelTokens = new JLabel("Tokens: "+game.tokens);
+		labelTokens.setFont(new Font("Serif", Font.PLAIN, 20));
+		labelTokens.setForeground (Color.black);
+		labelTokens.setBounds(30,0,100,50);
+		labels.add(labelTokens);
+		
+		labelBet = new JLabel("Bet: "+game.bet);
+		labelBet.setForeground (Color.black);
+		labelBet.setBounds(30,0,100,105);
+		labels.add(labelBet);
 
 		JPanel winA = new JPanel();
 		winA.setOpaque(true);
@@ -160,6 +164,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		bet5.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.bet(5);
+				update();
 	          }
 	      }); 
 		
@@ -167,6 +172,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		bet15.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.bet(15);
+				update();
 	          }
 	      }); 
 
@@ -174,6 +180,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		bet30.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.bet(30);
+				update();
 	          }
 	      }); 
 		
@@ -181,6 +188,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		betAll.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.bet(game.tokens);
+				update();
 	          }
 	      }); 
 
@@ -253,6 +261,11 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	 
 
 	}
+
+	public void update() {
+	   labelTokens.setText("Tokens: " + game.tokens);
+	   labelBet.setText("Bet: " + game.bet);
+   }
 
 
 	@Override

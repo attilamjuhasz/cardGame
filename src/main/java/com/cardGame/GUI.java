@@ -130,8 +130,11 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		hit.addActionListener(new ActionListener() {
 			
 	        public void actionPerformed(ActionEvent e) {  
-	        System.out.println("here");
-	           ret.add(drawPile(game.hit()));
+	           System.out.println("here");
+	           Stack<Card> pCards = game.hit();
+	           if (!game.bust) {
+	        	   ret.add(drawPile(pCards));
+	           }
 	           revalidate();
 	           repaint();
 	        }

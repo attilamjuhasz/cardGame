@@ -194,6 +194,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 		
 		stand = new JButton("Stand");
+	    GUI gui = this;
 		stand.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.dealerTurn();

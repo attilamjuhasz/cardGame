@@ -226,16 +226,19 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 	}
    
-   public JLayeredPane drawPileDealer(Stack<Card> stackIn, boolean dTurn) {
+      public JLayeredPane drawPileDealer(Stack<Card> stackIn, boolean dTurn) {
 
 	    Object cards[];
 	    cards = stackIn.toArray(); //please note we convert this stack to an array so that we can iterate through it backwards while drawing. You’ll need to cast each element inside cards to a <Card> in order to use the methods to adjust their position
 	    JLayeredPane dealerRet = new JLayeredPane();
 	    for (int i = 0; i < cards.length; i++) {
+	    	System.out.println("stuck?");
 			Card card = (Card) cards[i];
 			card.setBounds(i * 20, 0, 100, 150);
 			if (!dTurn && i == 0) {
 				card.hide();
+			}else if(dTurn && i ==0) {
+				card.show();
 			}
 			dealerRet.add(card, (Integer)i);
 	    }

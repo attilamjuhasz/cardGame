@@ -15,6 +15,7 @@ public class Blackjack {
 	int pValue = 0;
 	int dValue = 0;
 	boolean betted = false;
+	boolean bust = false;
 
 	
 	

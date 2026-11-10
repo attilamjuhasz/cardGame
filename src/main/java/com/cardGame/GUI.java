@@ -108,7 +108,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		JPanel labels = new JPanel();
 		labels.setOpaque(true);
 		labels.setLayout(null);
-		labels.setBounds(700, 100, 150, 50);
+		labels.setBounds(700, 100, 150, 100);
 		labels.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.green));
 		gameArea.add(labels);
 		JLabel aba = new JLabel("Tokens: "+game.tokens);
@@ -116,6 +116,22 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		aba.setForeground (Color.black);
 		aba.setBounds(30,0,100,50);
 		labels.add(aba);
+		JLabel bbb = new JLabel("Bet: "+game.bet);
+		bbb.setForeground (Color.black);
+		bbb.setBounds(30,0,100,105);
+		labels.add(bbb);
+
+		JPanel winA = new JPanel();
+		winA.setOpaque(true);
+		winA.setLayout(null);
+		winA.setBounds(500, 0, 300, 50);
+		winA.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.green));
+		gameArea.add(winA);
+		JLabel winB = new JLabel("You need 100 tokens to WIN!");
+		winB.setFont(new Font("Serif", Font.PLAIN, 20));
+		winB.setForeground (Color.black);
+		winB.setBounds(30,0,290,50);
+		winA.add(winB);
 
 		
 		game.newGame();

@@ -34,9 +34,14 @@ public class Blackjack {
 	
 	public Stack<Card> hit() {
 		
-		Card leCard = deck.pop();
-		playerDeck.push(leCard);
-		pValue += leCard.value;
+		if (pValue > 21){
+			bust = true;
+		}
+		else {
+			Card leCard = deck.pop();
+			playerDeck.push(leCard);
+			pValue += leCard.value;
+		}
 		return playerDeck;
 		
 		

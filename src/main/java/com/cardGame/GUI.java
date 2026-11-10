@@ -131,7 +131,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		winA.setBounds(500, 0, 300, 50);
 		winA.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.green));
 		gameArea.add(winA);
-		JLabel winB = new JLabel("You need 100 tokens to WIN!");
+		JLabel winB = new JLabel("You need 1000 tokens to WIN!");
 		winB.setFont(new Font("Serif", Font.PLAIN, 20));
 		winB.setForeground (Color.black);
 		winB.setBounds(30,0,290,50);

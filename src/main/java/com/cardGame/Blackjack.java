@@ -48,7 +48,7 @@ public class Blackjack {
 	}
 	
 	public void newGame(){
-
+		
 		bet = 0;
 		
 		this.generateCards();
@@ -64,6 +64,8 @@ public class Blackjack {
 		
 		pValue += (one.value + two.value);
 		dValue += (three.value + four.value);
+		
+		bust = false;
 		
 		
 	}
@@ -113,9 +115,7 @@ public class Blackjack {
 		   else if (dValue == pValue) {
 			   tokens += bet;
 		   }
-		   this.newGame();
 	   }
-	
 	
 	
 	
@@ -139,8 +139,6 @@ public class Blackjack {
 			dealerDeck.push(card);
 			dValue += card.value;
 		}
-
-		finishRound();
 		
 	}
 	

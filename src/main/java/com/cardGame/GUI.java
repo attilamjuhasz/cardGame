@@ -25,6 +25,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	JLayeredPane dealerRet;
 	JButton hit;
 	JButton bet;
+	JButton nextRound;
 	JButton stand;
 	JLabel labelTokens;
 	JLabel labelBet;
@@ -154,6 +155,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	        public void actionPerformed(ActionEvent e) {  
 	           System.out.println("here");
 	           Stack<Card> pCards = game.hit();
+	           ret.removeAll();
 	           if (!game.bust) {
 	        	   ret.add(drawPile(pCards));
 	           }
@@ -203,6 +205,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	        public void actionPerformed(ActionEvent e) {  
 	           game.dealerTurn();
 	           System.out.println("hittin button");
+	           dealerRet.removeAll();
 	           dealerRet.add((gui.drawPileDealer(game.dealerDeck, true)));
 	           revalidate();
 	           repaint();
@@ -212,7 +215,29 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		 
 	           
 	          }
-	      }); 
+	      });
+		
+		nextRound = new JButton("Next Round");
+		stand.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {  
+	           game.dealerTurn();
+	           System.out.println("Next Round");
+	           if (game.tokens > 0) {
+	        	   game.newGame();
+	           }
+	           //repopulate both hands to the screen
+	           ret.removeAll();
+	           dealerRet.removeAll();
+	           ret.add(gui.drawPile(game.playerDeck));
+	           dealerRet.add(gui.drawPileDealer(game.dealerDeck, false));
+	           revalidate();
+	           repaint();
+	        
+		   	    
+		 
+	           
+	          }
+	      });
 		
 		controls.add(bet5);
 		controls.add(bet15);
@@ -220,9 +245,12 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		controls.add(betAll);
 		controls.add(hit);
 		controls.add(stand);
+		controls.add(nextRound);
 
 		this.setVisible(true);
     }
+   
+  
    
    //Precondition: gui is defined and stack is defined
    //Postcondition: places cards in stack in order ontop of eachother
@@ -252,9 +280,9 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 	    Object cards[];
 	    cards = stackIn.toArray(); //please note we convert this stack to an array so that we can iterate through it backwards while drawing. You’ll need to cast each element inside cards to a <Card> in order to use the methods to adjust their position
-	    JLayeredPane dealerRet = new JLayeredPane();
+	    JLayeredPane dRet = new JLayeredPane();
 	    for (int i = 0; i < cards.length; i++) {
-	    	System.out.println("stuck?");
+	    	//System.out.println("stuck?");
 			Card card = (Card) cards[i];
 			card.setBounds(i * 20, 0, 100, 150);
 			if (!dTurn && i == 0) {
@@ -262,20 +290,27 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 			}else if(dTurn && i ==0) {
 				card.show();
 			}
-			dealerRet.add(card, (Integer)i);
+			dRet.add(card, (Integer)i);
 	    }
-	    dealerRet.setBounds(new Rectangle(0, 0, cards.length*((Card)cards[0]).getWidth(), cards.length* ((Card)cards[0]).getHeight()));
+	    dRet.setBounds(new Rectangle(0, 0, cards.length*((Card)cards[0]).getWidth(), cards.length* ((Card)cards[0]).getHeight()));
 	   
 	    
-	    return dealerRet;
+	    return dRet;
 
 	 
 
 	}
 
-	public void update() {
+	private void update() {
 	   labelTokens.setText("Tokens: " + game.tokens);
 	   labelBet.setText("Bet: " + game.bet);
+       ret.removeAll();
+       dealerRet.removeAll();
+       ret.add(drawPile(game.playerDeck));
+       dealerRet.add(drawPileDealer(game.dealerDeck, dealerTurn));
+       revalidate();
+       repaint();
+    
    }
 
 

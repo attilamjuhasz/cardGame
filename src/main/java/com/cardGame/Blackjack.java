@@ -16,6 +16,7 @@ public class Blackjack {
 	int dValue = 0;
 	boolean betted = false;
 	boolean bust = false;
+	boolean dealerTurn = false;
 
 	
 	
@@ -115,6 +116,9 @@ public class Blackjack {
 		   else if (dValue == pValue) {
 			   tokens += bet;
 		   }
+		   
+		   pValue = 0;
+		   dValue = 0;
 	   }
 	
 	

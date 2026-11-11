@@ -205,6 +205,9 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	        public void actionPerformed(ActionEvent e) {  
 	           game.dealerTurn();
 	           System.out.println("hittin button");
+				if(game.tokens>=1000){
+					winB.setText("You WIN!");
+				}
 	           dealerRet.removeAll();
 	           dealerRet.add((gui.drawPileDealer(game.dealerDeck, true)));
 	           revalidate();

@@ -26,8 +26,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	JButton hit;
 	JButton bet;
 	JButton stand;
-	JLabel labelTokens;
-	JLabel labelBet;
 
 
 	public static String IMG_PATH = System.getProperty("user.dir")+"/src/main/java/com/cardGame/resources/";
@@ -110,33 +108,14 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		JPanel labels = new JPanel();
 		labels.setOpaque(true);
 		labels.setLayout(null);
-		labels.setBounds(700, 100, 150, 100);
+		labels.setBounds(700, 100, 150, 50);
 		labels.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.green));
 		gameArea.add(labels);
-		
-		labelTokens = new JLabel("Tokens: "+game.tokens);
-		labelTokens.setFont(new Font("Serif", Font.PLAIN, 20));
-		labelTokens.setForeground (Color.black);
-		labelTokens.setBounds(30,0,100,50);
-		labels.add(labelTokens);
-		
-		labelBet = new JLabel("Bet: "+game.bet);
-		labelBet.setForeground (Color.black);
-		labelBet.setBounds(30,0,100,105);
-		labels.add(labelBet);
-
-		JPanel winA = new JPanel();
-		winA.setOpaque(true);
-		winA.setLayout(null);
-		winA.setBounds(500, 0, 300, 50);
-		winA.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.green));
-		gameArea.add(winA);
-		JLabel winB = new JLabel("You need 1000 tokens to WIN!");
-		winB.setFont(new Font("Serif", Font.PLAIN, 20));
-		winB.setForeground (Color.black);
-		winB.setBounds(30,0,290,50);
-		winA.add(winB);
-
+		JLabel aba = new JLabel("Tokens: "+game.tokens);
+		aba.setFont(new Font("Serif", Font.PLAIN, 20));
+		aba.setForeground (Color.black);
+		aba.setBounds(30,0,100,50);
+		labels.add(aba);
 		
 		game.newGame();
 		ret.add(drawPile(game.playerDeck));
@@ -164,7 +143,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		bet5.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.bet(5);
-				update();
 	          }
 	      }); 
 		
@@ -172,7 +150,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		bet15.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.bet(15);
-				update();
 	          }
 	      }); 
 
@@ -180,7 +157,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		bet30.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.bet(30);
-				update();
 	          }
 	      }); 
 		
@@ -188,20 +164,25 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		betAll.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.bet(game.tokens);
-				update();
 	          }
 	      }); 
+		
 
 		
 		stand = new JButton("Stand");
-	    GUI gui = this;
+		GUI gui = this;
 		stand.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.dealerTurn();
-				System.out.println("hittin button");
+	           System.out.println("hittin button");
 	           dealerRet.add((gui.drawPileDealer(game.dealerDeck, true)));
 	           revalidate();
 	           repaint();
+	           
+	           game.gameOver();
+		   	    
+		 
+	           
 	          }
 	      }); 
 		
@@ -239,7 +220,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 	}
    
-      public JLayeredPane drawPileDealer(Stack<Card> stackIn, boolean dTurn) {
+   public JLayeredPane drawPileDealer(Stack<Card> stackIn, boolean dTurn) {
 
 	    Object cards[];
 	    cards = stackIn.toArray(); //please note we convert this stack to an array so that we can iterate through it backwards while drawing. You’ll need to cast each element inside cards to a <Card> in order to use the methods to adjust their position
@@ -256,21 +237,13 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 			dealerRet.add(card, (Integer)i);
 	    }
 	    dealerRet.setBounds(new Rectangle(0, 0, cards.length*((Card)cards[0]).getWidth(), cards.length* ((Card)cards[0]).getHeight()));
+	   
 	    
-	    if (game.pValue > 21) {
-	    	game.gameOver();
-	    }
-	 
 	    return dealerRet;
 
 	 
 
 	}
-
-	public void update() {
-	   labelTokens.setText("Tokens: " + game.tokens);
-	   labelBet.setText("Bet: " + game.bet);
-   }
 
 
 	@Override

@@ -41,11 +41,14 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 
 	public static String IMG_PATH = System.getProperty("user.dir")+"/src/main/java/com/cardGame/resources/";
+
+	//Pre-condition: A valid Blackjack game is passed as parameter
+	//Post-condition: Initializes the application window, sets up game panels, control buttons, card displays, and makes the GUI visible
    public GUI(Blackjack game){
 
 	   this.game= game;
         //Create and set up the window.
-       setTitle("Solitaire");
+       setTitle("Blackjack");
        setSize(900,700);
        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -349,9 +352,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
    
    
   
-   
-   //Precondition: gui is defined and stack is defined
-   //Postcondition: places cards in stack in order ontop of eachother
+	//Pre-condition: stackIn is a valid, non-null Stack of Card objects
+	//Post-condition: Returns a JLayeredPane containing the cards order on top of each other with horizontal offset
    public JLayeredPane drawPile(Stack<Card> stackIn) {
 
 	    Object cards[];
@@ -370,7 +372,9 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	 
 
 	}
-   
+
+	//Pre-condition: stackIn is a valid Stack of Card objects, and the boolean dTurn indicates whether it is the dealer’s turn or not
+	//Post-condition: Returns a JLayeredPane containing dealer cards and hides or shows the card based on the whether it is dealer’s turn or not
    public JLayeredPane drawPileDealer(Stack<Card> stackIn, boolean dTurn) {
 
 	    Object cards[];
@@ -395,6 +399,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 	}
 
+	//Pre-condition: GUI components and game instance are initialized
+	//Post-condition: Updates the token and bet labels, clears and redraws player and dealer card panels, revalidates and repaints the container, and toggles the win/lose screen visibility based on game's win/lose status.
 	private void update() {
 	   labelTokens.setText("Tokens: " + game.tokens);
 	   labelBet.setText("Bet: " + game.bet);

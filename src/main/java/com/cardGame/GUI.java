@@ -29,6 +29,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	JButton stand;
 	JLabel labelTokens;
 	JLabel labelBet;
+	JLabel winScreen;
 
 
 
@@ -126,6 +127,12 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		labelBet.setForeground (Color.black);
 		labelBet.setBounds(30,0,100,105);
 		labels.add(labelBet);
+
+	   	winScreen = new JLabel("YOU WON!");
+		winScreen.setForeground (Color.red);
+		winScreen.setBounds(30,0,100,155);
+		winScreen.setVisible(false);
+		labels.add(winScreen);
 
 		JPanel winA = new JPanel();
 		winA.setOpaque(true);
@@ -313,6 +320,14 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
        dealerRet.add(drawPileDealer(game.dealerDeck, dealerTurn));
        revalidate();
        repaint();
+
+		if (game.tokens >= 1000) {
+    	   winScreen.setVisible(true);
+       }
+       else {
+           winScreen.setVisible(false);
+       }
+    
     
    }
 

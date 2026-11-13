@@ -52,7 +52,11 @@ public class Blackjack {
 		
 		bet = 0;
 		
-		this.generateCards();
+		deck.clear();
+		generateCards();
+		playerDeck.clear();
+		dealerDeck.clear();
+		
 		Card one = deck.pop();
 		Card two = deck.pop();
 		Card three = deck.pop();
@@ -67,6 +71,7 @@ public class Blackjack {
 		dValue += (three.value + four.value);
 		
 		bust = false;
+		betted = false;
 		
 		
 	}
@@ -110,15 +115,35 @@ public class Blackjack {
 	   
 	   
 	   public void gameOver() {
-		   if (pValue > dValue) {
+		   
+		   System.out.println("pValue: " +pValue);
+		   System.out.println("dValue: " +dValue);
+		   
+		   if (pValue > 21) {
+			   System.out.println("Bust");
+			   System.out.println("Lost: " +tokens);
+		   }
+		   else if (pValue > dValue && pValue < 22) {
 			   tokens += 2*bet;
+			   System.out.println("Won: " +tokens);
+		   }
+		   else if (dValue > pValue && dValue > 21) {
+			   tokens += 2*bet;
+			   System.out.println("Won: " +tokens);
+		   }
+		   else if (dValue > pValue && dValue < 22) {
+			   System.out.println("Lost: " +tokens);
 		   }
 		   else if (dValue == pValue) {
 			   tokens += bet;
+			   System.out.println("Tie: " +tokens);
 		   }
-		   
+		   else {
+			   System.out.println("Lost: " +tokens);
+		   }
 		   pValue = 0;
 		   dValue = 0;
+		   
 	   }
 	
 	
@@ -138,11 +163,15 @@ public class Blackjack {
 	
 	public void dealerTurn() {
 		
-		while (dValue < 17) {
-			Card card = deck.pop();
-			dealerDeck.push(card);
-			dValue += card.value;
+		if (pValue < 22) {
+			while (dValue < 17) {
+				Card card = deck.pop();
+				dealerDeck.push(card);
+				dValue += card.value;
+			}
 		}
+
+		
 		
 	}
 	

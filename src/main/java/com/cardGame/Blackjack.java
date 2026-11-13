@@ -49,7 +49,7 @@ public class Blackjack {
 	
 	
 	
-	public Stack<Card> hit() {
+	public void hit() {
 		
 		
 		if (!bust && !noMoreHits){
@@ -63,7 +63,6 @@ public class Blackjack {
 			bust = true;
 		}
 		
-		return playerDeck;
 		
 		
 	}
@@ -138,32 +137,21 @@ public class Blackjack {
 	}
 	   
 	   
-	   public void gameOver() {
-		   
-		   System.out.println("pValue: " +pValue);
-		   System.out.println("dValue: " +dValue);
-		   
+	   public void gameOver() {		   
 		   if (pValue > 21) {
-			   System.out.println("Bust");
-			   System.out.println("Lost: " +tokens);
 		   }
 		   else if (pValue > dValue && pValue < 22) {
 			   tokens += 2*bet;
-			   System.out.println("Won: " +tokens);
 		   }
 		   else if (dValue > pValue && dValue > 21) {
 			   tokens += 2*bet;
-			   System.out.println("Won: " +tokens);
 		   }
 		   else if (dValue > pValue && dValue < 22) {
-			   System.out.println("Lost: " +tokens);
 		   }
 		   else if (dValue == pValue) {
 			   tokens += bet;
-			   System.out.println("Tie: " +tokens);
 		   }
 		   else {
-			   System.out.println("Lost: " +tokens);
 		   }
 
 		   if (tokens < 1){
@@ -188,7 +176,6 @@ public class Blackjack {
 			this.bet = bet;
 			tokens -= this.bet;
 			betted = true;
-			System.out.println("Betted: " + bet);
 		}
 	}
 		
@@ -204,7 +191,6 @@ public class Blackjack {
 				Card card = deck.pop();
 				dealerDeck.push(card);
 				dValue += card.value;
-				System.out.println(card);
 			}
 		}
 

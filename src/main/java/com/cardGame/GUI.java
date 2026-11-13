@@ -211,11 +211,12 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		hit.addActionListener(new ActionListener() {
 			
 	        public void actionPerformed(ActionEvent e) {  
-				System.out.println("Hit");
-				System.out.println(game.noMoreStands);
-				Stack<Card> pCards = game.hit();
+				
+				if (game.betted){
+					game.hit();
+				}
 				ret.removeAll();
-				ret.add(drawPile(pCards));
+				ret.add(drawPile(game.playerDeck));
 				revalidate();
 				repaint();
 				
@@ -266,7 +267,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 				
 				
 				game.dealerTurn();
-				System.out.println("Stand");
 				dealerRet.removeAll();
 				dealerRet.add((gui.drawPileDealer(game.dealerDeck, true)));
 				revalidate();
@@ -328,8 +328,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	           repaint();
 	           
 	           update();
-	           
-	           System.out.println("Next Round");           
+	                 
 	        
 		   	    
 		 
@@ -378,7 +377,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	    cards = stackIn.toArray(); //please note we convert this stack to an array so that we can iterate through it backwards while drawing. You’ll need to cast each element inside cards to a <Card> in order to use the methods to adjust their position
 	    JLayeredPane dRet = new JLayeredPane();
 	    for (int i = 0; i < cards.length; i++) {
-	    	//System.out.println("stuck?");
 			Card card = (Card) cards[i];
 			card.setBounds(i * 20, 0, 100, 150);
 			if (!dTurn && i == 0) {

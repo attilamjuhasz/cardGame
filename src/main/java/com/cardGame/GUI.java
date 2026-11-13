@@ -127,8 +127,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		labelBet.setForeground (Color.black);
 		labelBet.setBounds(30,0,100,105);
 		labels.add(labelBet);
-
-	   	winScreen = new JLabel("YOU WON!");
+		
+		winScreen = new JLabel("YOU WON!");
 		winScreen.setForeground (Color.red);
 		winScreen.setBounds(30,0,100,155);
 		winScreen.setVisible(false);
@@ -211,16 +211,14 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		stand.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.dealerTurn();
-	           System.out.println("hittin button");
-				if(game.tokens>=1000){
-					winB.setText("You WIN!");
-				}
+	           System.out.println("Stand");
 	           dealerRet.removeAll();
 	           dealerRet.add((gui.drawPileDealer(game.dealerDeck, true)));
 	           revalidate();
 	           repaint();
 	           
 	           game.gameOver();
+	           
 		   	    
 		 
 	           
@@ -228,10 +226,9 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	      });
 		
 		nextRound = new JButton("Next Round");
-		stand.addActionListener(new ActionListener() {
+		nextRound.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
 	           game.dealerTurn();
-	           System.out.println("Next Round");
 	           if (game.tokens > 0) {
 	        	   game.newGame();
 	           }
@@ -242,6 +239,15 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	           dealerRet.add(gui.drawPileDealer(game.dealerDeck, false));
 	           revalidate();
 	           repaint();
+	           
+	           ret.add(gui.drawPile(game.playerDeck));
+	           dealerRet.add(gui.drawPileDealer(game.dealerDeck, false));
+	           revalidate();
+	           repaint();
+	           
+	           update();
+	           
+	           System.out.println("Next Round");           
 	        
 		   	    
 		 
@@ -260,6 +266,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		this.setVisible(true);
     }
    
+   
   
    
    //Precondition: gui is defined and stack is defined
@@ -276,9 +283,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	    }
 	    ret.setBounds(new Rectangle(0, 0, cards.length*((Card)cards[0]).getWidth(), cards.length* ((Card)cards[0]).getHeight()));
 	    
-	    if (game.pValue > 21) {
-	    	game.gameOver();
-	    }
 	 
 	    return ret;
 
@@ -317,17 +321,16 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
        ret.removeAll();
        dealerRet.removeAll();
        ret.add(drawPile(game.playerDeck));
-       dealerRet.add(drawPileDealer(game.dealerDeck, dealerTurn));
+       dealerRet.add(drawPileDealer(game.dealerDeck, game.dealerTurn));
        revalidate();
        repaint();
-
-		if (game.tokens >= 1000) {
+       
+       if (game.tokens >= 1000) {
     	   winScreen.setVisible(true);
        }
        else {
            winScreen.setVisible(false);
        }
-    
     
    }
 

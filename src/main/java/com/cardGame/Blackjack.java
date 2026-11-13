@@ -25,7 +25,8 @@ public class Blackjack {
 
 	
 	
-	
+	//Pre-condition: None
+	//Post-condition: Initializes the Blackjack game with default values, creates card stacks, and generates a shuffled deck. 
 	public Blackjack(){
 		deck = new Stack();
 		playerDeck = new Stack<>();
@@ -48,10 +49,9 @@ public class Blackjack {
 	
 	
 	
-	
+	//Pre-condition: Player deck and main deck need to be initialized.
+	//Post-condition: Pops a card from main deck, pushes it to player deck, update player's value, and checks for bust.
 	public void hit() {
-		
-		
 		if (!bust && !noMoreHits){
 			Card leCard = deck.pop();
 			playerDeck.push(leCard);
@@ -66,7 +66,9 @@ public class Blackjack {
 		
 		
 	}
-	
+
+	//Pre-condition: Blackjack's instance variables exist and the round is restarting
+	//Post-condition: Resets bet, clears and generates new card deck, clears the player and dealer's cards, gives out two initial cards to the player and dealer, updates the player and dealer value according to the card, and resets the booleans.  
 	public void newGame(){
 		
 		bust = false;
@@ -99,7 +101,8 @@ public class Blackjack {
 		
 	}
 	
-	
+	//Pre-condition: None
+	//Post-condition: Creates the entire 52 card deck including all values (like 1,2,J,K) and suits, then shuffles the cards and puts them into a deck stack.
 	public void generateCards() {
 		ArrayList<Card> list = new ArrayList();
 		//loop through all cards
@@ -136,35 +139,37 @@ public class Blackjack {
 		
 	}
 	   
-	   
-	   public void gameOver() {		   
-		   if (pValue > dValue && pValue < 22) {
-			   tokens += 2*bet;
-		   }
-		   else if (dValue > pValue && dValue > 21) {
-			   tokens += 2*bet;
-		   }
-		   else if (dValue == pValue) {
-			   tokens += bet;
-		   }
 
-		   if (tokens < 1){
-			lost = true;
-		   }
-		   else if (tokens >= 1000){
-			won = true;
-		   }
+	//Pre-condition: The player and dealer completed their turns and hand values of each is already calculated
+	//Post-condition: Gets the game results by comparing the player and dealer hand values, updating the tokens based on the outcome like win/loss/tie, resets the player and dealer hand values to zero, and update game status.
 
-		   pValue = 0;
-		   dValue = 0;
-		   bet = 0;
-		   nextRoundAvailable = true;
-		   
+	public void gameOver() {		   
+	   if (pValue > dValue && pValue < 22) {
+		   tokens += 2*bet;
 	   }
+	   else if (dValue > pValue && dValue > 21) {
+		   tokens += 2*bet;
+	   }
+	   else if (dValue == pValue) {
+		   tokens += bet;
+	   }
+	   if (tokens < 1){
+		   lost = true;
+	   }
+	   else if (tokens >= 1000){
+		   won = true;
+		}
+		
+	   pValue = 0;
+	   dValue = 0;
+	   bet = 0;
+		nextRoundAvailable = true;
+	}
 	
 	
 	
-	
+	//Pre-condition: Player has enough tokens to bet and did not yet bet in the current round.
+	//Post-condition: Sets the current bet amount, reduces the bet from player's tokens, and sets the betted boolean to true 
 	public void bet(int bet) {
 		if (tokens >= bet && betted == false) {
 			this.bet = bet;
@@ -175,10 +180,9 @@ public class Blackjack {
 		
 		
 		
-	
+	//Pre-condition: Player finished their turn and did not bust
+	//Post-condition: Dealer draws cards from the deck until the dealer's hand value is at least 17.
 	public void dealerTurn() {
-
-
 		
 		if (pValue < 22 && !noMoreStands) {
 			while (dValue < 17) {

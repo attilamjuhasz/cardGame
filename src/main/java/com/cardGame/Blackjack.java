@@ -138,20 +138,14 @@ public class Blackjack {
 	   
 	   
 	   public void gameOver() {		   
-		   if (pValue > 21) {
-		   }
-		   else if (pValue > dValue && pValue < 22) {
+		   if (pValue > dValue && pValue < 22) {
 			   tokens += 2*bet;
 		   }
 		   else if (dValue > pValue && dValue > 21) {
 			   tokens += 2*bet;
 		   }
-		   else if (dValue > pValue && dValue < 22) {
-		   }
 		   else if (dValue == pValue) {
 			   tokens += bet;
-		   }
-		   else {
 		   }
 
 		   if (tokens < 1){

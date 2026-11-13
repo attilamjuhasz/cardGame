@@ -11,12 +11,17 @@ public class Blackjack {
 	Stack<Card> dealerDeck;
 	int tokens;
 	int bet;
-	boolean game = true;
-	int pValue = 0;
-	int dValue = 0;
-	boolean betted = false;
-	boolean bust = false;
-	boolean dealerTurn = false;
+	boolean game;
+	int pValue;
+	int dValue;
+	boolean betted;
+	boolean bust;
+	boolean dealerTurn;
+	boolean noMoreHits;
+	boolean noMoreStands;
+	boolean lost;
+	boolean won;
+	boolean nextRoundAvailable;
 
 	
 	
@@ -27,6 +32,17 @@ public class Blackjack {
 		dealerDeck = new Stack<>();
 		tokens = 100;
 		bet = 0;
+		game = true;
+		pValue = 0;
+		dValue = 0;
+		betted = false;
+		bust = false;
+		dealerTurn = false;
+		noMoreHits = false;
+		noMoreStands = false;
+		lost = false;
+		won = false;
+		nextRoundAvailable = false;
 		generateCards();
 	}
 	
@@ -35,14 +51,18 @@ public class Blackjack {
 	
 	public Stack<Card> hit() {
 		
-		if (pValue > 21){
-			bust = true;
-		}
-		else {
+		
+		if (!bust && !noMoreHits){
 			Card leCard = deck.pop();
 			playerDeck.push(leCard);
 			pValue += leCard.value;
 		}
+		
+		
+		if (pValue > 21){
+			bust = true;
+		}
+		
 		return playerDeck;
 		
 		
@@ -50,7 +70,12 @@ public class Blackjack {
 	
 	public void newGame(){
 		
-		bet = 0;
+		bust = false;
+		betted = false;
+		noMoreHits = false;
+		noMoreStands = false;
+		nextRoundAvailable = false;
+		
 		
 		deck.clear();
 		generateCards();
@@ -70,8 +95,7 @@ public class Blackjack {
 		pValue += (one.value + two.value);
 		dValue += (three.value + four.value);
 		
-		bust = false;
-		betted = false;
+		
 		
 		
 	}
@@ -141,8 +165,18 @@ public class Blackjack {
 		   else {
 			   System.out.println("Lost: " +tokens);
 		   }
+
+		   if (tokens < 1){
+			lost = true;
+		   }
+		   else if (tokens >= 1000){
+			won = true;
+		   }
+
 		   pValue = 0;
 		   dValue = 0;
+		   bet = 0;
+		   nextRoundAvailable = true;
 		   
 	   }
 	
@@ -162,12 +196,15 @@ public class Blackjack {
 		
 	
 	public void dealerTurn() {
+
+
 		
-		if (pValue < 22) {
+		if (pValue < 22 && !noMoreStands) {
 			while (dValue < 17) {
 				Card card = deck.pop();
 				dealerDeck.push(card);
 				dValue += card.value;
+				System.out.println(card);
 			}
 		}
 

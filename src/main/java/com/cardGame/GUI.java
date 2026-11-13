@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
+import java.lang.classfile.Label;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -30,11 +31,18 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	JLabel labelTokens;
 	JLabel labelBet;
 	JLabel winScreen;
+	JLabel loseScreen;
+	JLabel result;
+	JLabel vJack;
+	JLabel vQueen;
+	JLabel vKing;
+	JLabel vAce;
 
 
 
 	public static String IMG_PATH = System.getProperty("user.dir")+"/src/main/java/com/cardGame/resources/";
    public GUI(Blackjack game){
+
 	   this.game= game;
         //Create and set up the window.
        setTitle("Solitaire");
@@ -113,7 +121,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		JPanel labels = new JPanel();
 		labels.setOpaque(true);
 		labels.setLayout(null);
-		labels.setBounds(700, 100, 150, 100);
+		labels.setBounds(700, 100, 150, 200);
 		labels.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.green));
 		gameArea.add(labels);
 		
@@ -127,12 +135,55 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		labelBet.setForeground (Color.black);
 		labelBet.setBounds(30,0,100,105);
 		labels.add(labelBet);
+
+
+		vJack = new JLabel("Jack: 11");
+		vJack.setFont(new Font("Serif", Font.PLAIN, 10));
+		vJack.setForeground (Color.blue);
+		vJack.setBounds(30,0,100,155);
+		vJack.setVisible(true);
+		labels.add(vJack);
+
+		vQueen = new JLabel("Queen: 12");
+		vQueen.setFont(new Font("Serif", Font.PLAIN, 10));
+		vQueen.setForeground (Color.blue);
+		vQueen.setBounds(30,0,100,175);
+		vQueen.setVisible(true);
+		labels.add(vQueen);
+
+		vKing = new JLabel("King: 13");
+		vKing.setFont(new Font("Serif", Font.PLAIN, 10));
+		vKing.setForeground (Color.blue);
+		vKing.setBounds(30,0,100,195);
+		vKing.setVisible(true);
+		labels.add(vKing);
+
+		vAce = new JLabel("Ace: 1");
+		vAce.setFont(new Font("Serif", Font.PLAIN, 10));
+		vAce.setForeground (Color.blue);
+		vAce.setBounds(30,0,100,215);
+		vAce.setVisible(true);
+		labels.add(vAce);
 		
 		winScreen = new JLabel("YOU WON!");
 		winScreen.setForeground (Color.red);
-		winScreen.setBounds(30,0,100,155);
+		winScreen.setBounds(30,0,100,255);
 		winScreen.setVisible(false);
 		labels.add(winScreen);
+
+		loseScreen = new JLabel("GAME OVER!");
+		loseScreen.setForeground (Color.red);
+		loseScreen.setBounds(30,0,100,255);
+		loseScreen.setVisible(false);
+		labels.add(loseScreen);
+
+		result = new JLabel("");
+		result.setForeground (Color.red);
+		result.setBounds(30,0,100,255);
+		result.setVisible(false);
+		labels.add(result);
+		
+		
 
 		JPanel winA = new JPanel();
 		winA.setOpaque(true);
@@ -160,14 +211,14 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		hit.addActionListener(new ActionListener() {
 			
 	        public void actionPerformed(ActionEvent e) {  
-	           System.out.println("here");
-	           Stack<Card> pCards = game.hit();
-	           ret.removeAll();
-	           if (!game.bust) {
-	        	   ret.add(drawPile(pCards));
-	           }
-	           revalidate();
-	           repaint();
+				System.out.println("Hit");
+				System.out.println(game.noMoreStands);
+				Stack<Card> pCards = game.hit();
+				ret.removeAll();
+				ret.add(drawPile(pCards));
+				revalidate();
+				repaint();
+				
 	        }
 	      }); 
 
@@ -210,14 +261,44 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		GUI gui = this;
 		stand.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
-	           game.dealerTurn();
-	           System.out.println("Stand");
-	           dealerRet.removeAll();
-	           dealerRet.add((gui.drawPileDealer(game.dealerDeck, true)));
-	           revalidate();
-	           repaint();
 	           
-	           game.gameOver();
+			   if (!game.won && !game.lost){
+				
+				
+				game.dealerTurn();
+				System.out.println("Stand");
+				dealerRet.removeAll();
+				dealerRet.add((gui.drawPileDealer(game.dealerDeck, true)));
+				revalidate();
+				repaint();
+
+				game.noMoreHits = true;
+				game.noMoreStands = true;
+
+				if (game.pValue > 21) {
+					result.setText("Bust");
+				}
+				else if (game.pValue > game.dValue && game.pValue < 22) {
+					result.setText("Won round");
+				}
+				else if (game.dValue > game.pValue && game.dValue > 21) {
+					result.setText("Won round");
+				}
+				else if (game.dValue > game.pValue && game.dValue < 22) {
+					result.setText("Lost round");
+				}
+				else if (game.dValue == game.pValue) {
+					result.setText("Tied round");
+				}
+				else {
+					result.setText("Lost round");
+				}
+
+				result.setVisible(true);
+				
+				game.gameOver();
+			   }
+	           
 	           
 		   	    
 		 
@@ -228,11 +309,12 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		nextRound = new JButton("Next Round");
 		nextRound.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {  
-	           game.dealerTurn();
-	           if (game.tokens > 0) {
+
+				result.setVisible(false);
+
+	           if (game.tokens > 0 && game.tokens < 1000 && game.nextRoundAvailable) {
 	        	   game.newGame();
 	           }
-	           //repopulate both hands to the screen
 	           ret.removeAll();
 	           dealerRet.removeAll();
 	           ret.add(gui.drawPile(game.playerDeck));
@@ -318,18 +400,25 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	private void update() {
 	   labelTokens.setText("Tokens: " + game.tokens);
 	   labelBet.setText("Bet: " + game.bet);
-       ret.removeAll();
-       dealerRet.removeAll();
-       ret.add(drawPile(game.playerDeck));
-       dealerRet.add(drawPileDealer(game.dealerDeck, game.dealerTurn));
-       revalidate();
-       repaint();
+	   if (!game.lost && !game.won){
+		ret.removeAll();
+		dealerRet.removeAll();
+		ret.add(drawPile(game.playerDeck));
+		dealerRet.add(drawPileDealer(game.dealerDeck, game.dealerTurn));
+		revalidate();
+		repaint();
+	   }
        
-       if (game.tokens >= 1000) {
+       
+       if (game.won) {
     	   winScreen.setVisible(true);
        }
+	   else if (game.lost){
+		loseScreen.setVisible(true);
+	   }
        else {
            winScreen.setVisible(false);
+		   loseScreen.setVisible(false);
        }
     
    }
